@@ -1,5 +1,3 @@
-package FileOperations;
-
 import java.io.File;
 import java.io.InputStream;
 import java.nio.file.CopyOption;
@@ -23,4 +21,6 @@ public interface IFileManager {
     Boolean checkFileNameIfContains(File file, String str);
 
     File[] listFiles(File file);
+
+    boolean checkIfLatestOrNot(File folder);
 }

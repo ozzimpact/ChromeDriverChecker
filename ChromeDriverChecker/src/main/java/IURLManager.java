@@ -1,6 +1,3 @@
-package URLOperations;
-
-import java.net.URL;
 import java.net.URLConnection;
 
 /**
@@ -8,6 +5,6 @@ import java.net.URLConnection;
  */
 public interface IURLManager {
 
-    URLConnection openConnection(URL url);
+    URLConnection openConnection();
 
 }

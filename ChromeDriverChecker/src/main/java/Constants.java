@@ -6,49 +6,27 @@ import java.nio.file.Paths;
  */
 public class Constants {
 
-    private String version;
+    //For all environments
+    public static String version;
     public static String versionCheckerUrl = "http://chromedriver.storage.googleapis.com/LATEST_RELEASE";
     public static String zipExtension = ".zip";
     public static String firstPartOfDownloadLink = "http://chromedriver.storage.googleapis.com/";
+    public static String actionMessage;
+    public static String updateMessage = "Chrome driver is updated to version-";
+    public static String upToDateMessage = "Chrome driver is up-to-date.";
+    public static String downloadURL;
+    public static Path fileDirAndName;
 
     //For Windows
-    public static Path downloadDirectory = Paths.get("C:\\Users\\oguzhan.demir\\Desktop\\selenide\\");
-    private String downloadURL;
+    public static Path downloadDirectory = Paths.get("C:\\selenide\\chromedriver\\");
     public static String downloadLinkEnvironment = "/chromedriver_win32.zip";
-    private Path fileDirAndName;
-    public static String fileDir = "C:\\Users\\oguzhan.demir\\Desktop\\selenide\\chromeDriver-v";
+    public static String fileDir = "C:\\selenide\\chromedriver\\chromeDriver-v";
+
 
     //For Mac
 /*  public static Path downloadDirectory = Paths.get("C:\\Users\\oguzhan.demir\\Desktop\\selenide\\");
-    private String downloadURL;
     public static String downloadLinkEnvironment = "/chromedriver_win32.zip";
-    private Path fileDirAndName;
     public static String fileDir = "C:\\Users\\oguzhan.demir\\Desktop\\selenide\\chromeDriver-v";*/
-
-
-    public String getVersion() {
-        return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
-    }
-
-    public String getDownloadURL() {
-        return downloadURL;
-    }
-
-    public void setDownloadURL(String downloadURL) {
-        this.downloadURL = downloadURL;
-    }
-
-    public Path getFileDirAndName() {
-        return fileDirAndName;
-    }
-
-    public void setFileDirAndName(Path fileDirAndName) {
-        this.fileDirAndName = fileDirAndName;
-    }
 
 
 }
