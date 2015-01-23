@@ -3,6 +3,6 @@
  */
 public interface IDownloadManager {
 
-    void getLatestVersion(String versionCheckUrl,Constants constants);
-    void downloadLatestDriver(IControlUnit iControlUnit,IDecompressor decompressor,Constants constants);
+    void getLatestVersion(String versionCheckUrl);
+    void downloadLatestDriver();
 }

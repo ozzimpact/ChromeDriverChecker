@@ -1,29 +1,29 @@
+import FileOperations.IFileManager;
+
 /**
  * Created by Oguzhan on 1/21/2015.
  */
 
 public class Executor {
 
-    private static IDecompressor _decompressor;
-    private static IDownloadManager _downloadManager;
-    private static IControlUnit _controlUnit;
-    private static Constants _constant;
-    public static void main(String args[]){
+    private  IDecompressor _decompressor;
+    private  IDownloadManager _downloadManager;
+    private  IControlUnit _controlUnit;
+    private  Constants _constant;
+    private  IFileManager _fileManager;
 
-        Executor executor = new Executor();
-        _decompressor = new Decompressor();
-        _downloadManager = new DownloadManager();
-        _controlUnit = new ControlUnit();
-        _constant = new Constants();
-        executor.Execute(_downloadManager,_controlUnit,_decompressor,_constant);
+    public Executor() {
+        this(new DownloadManager());
     }
 
-    public void Execute(IDownloadManager downloadManager,IControlUnit controlUnit,IDecompressor decompressor,Constants constants){
+    public Executor(IDownloadManager downloadManager) {
 
-        _constant = constants;
-        downloadManager.downloadLatestDriver(controlUnit,decompressor,_constant);
+        _downloadManager = downloadManager;
+
     }
 
+    public void Execute() {
 
-
+        _downloadManager.downloadLatestDriver();
+    }
 }

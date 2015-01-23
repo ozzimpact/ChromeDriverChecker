@@ -5,5 +5,5 @@ import java.io.File;
  */
 public interface IControlUnit {
 
-   boolean checkIfLatestOrNot(File folder,IDownloadManager iDownloadManager,Constants constants);
+   boolean checkIfLatestOrNot(File folder);
 }

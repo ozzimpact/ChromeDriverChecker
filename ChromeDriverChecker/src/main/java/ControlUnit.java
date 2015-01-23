@@ -1,3 +1,5 @@
+import FileOperations.IFileManager;
+
 import java.io.File;
 import java.nio.file.Paths;
 
@@ -7,20 +9,28 @@ import java.nio.file.Paths;
 public class ControlUnit implements IControlUnit {
 
     private IDownloadManager _downloadManager;
-    private File _folder;
     private Constants _constants;
-
-    @Override
-    public boolean checkIfLatestOrNot(File folder, IDownloadManager downloadManager, Constants constants) {
+    private IFileManager _fileManager;
+/*
+    public ControlUnit(){
+        this(new DownloadManager(),new Constants(),new FileManager());
+    }*/
+    public ControlUnit(IDownloadManager downloadManager,Constants constants,IFileManager fileManager ){
         _downloadManager = downloadManager;
         _constants = constants;
+        _fileManager = fileManager;
+    }
+
+
+    @Override
+    public boolean checkIfLatestOrNot(File folder) {
         String tempFileName;
-        _downloadManager.getLatestVersion(Constants.versionCheckerUrl, _constants);
+        _downloadManager.getLatestVersion(_constants.versionCheckerUrl);
 
         //_folder = folder;
-        if (folder.exists()) {
-            for (File file : folder.listFiles()) {
-                if (file.getName().contains(_constants.getVersion()))
+        if (_fileManager.checkIfExist(folder)) {
+            for (File file : _fileManager.listFiles(folder)) {
+                if (_fileManager.checkFileNameIfContains(file, _constants.getVersion()))
                     return false;
             }
         }

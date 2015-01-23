@@ -1,12 +1,12 @@
+import FileOperations.FileManager;
+import FileOperations.IFileManager;
 import org.apache.commons.io.IOUtils;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.MalformedInputException;
-import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
 /**
@@ -17,11 +17,23 @@ public class DownloadManager implements IDownloadManager {
     private IControlUnit _controlUnit;
     private IDecompressor _decompressor;
     private Constants _constants;
+    private IFileManager _fileManager;
+
+/*    public DownloadManager() {
+        this(new ControlUnit(), new Decompressor(), new Constants(), new FileManager());
+    }*/
+
+    public DownloadManager() {
+
+        _decompressor = new Decompressor();
+        _constants = new Constants();
+        _fileManager = new FileManager();
+        _controlUnit = new ControlUnit(this,_constants,_fileManager);
+    }
 
     @Override
-    public void getLatestVersion(String versionCheckerUrl, Constants constants) {
+    public void getLatestVersion(String versionCheckerUrl) {
         String body = "";
-        _constants = constants;
         try {
             URL url = new URL(versionCheckerUrl);
             URLConnection con = url.openConnection();
@@ -38,24 +50,19 @@ public class DownloadManager implements IDownloadManager {
     }
 
     @Override
-    public void downloadLatestDriver(IControlUnit controlUnit,
-                                     IDecompressor decompressor, Constants constants) {
+    public void downloadLatestDriver() {
 
-        _decompressor = decompressor;
-        _controlUnit = controlUnit;
-        _constants = constants;
-        if (_controlUnit.checkIfLatestOrNot(Constants.downloadDirectory.toFile(), this, _constants)) {
+        if (_controlUnit.checkIfLatestOrNot(_fileManager.pathToFile(Constants.downloadDirectory))) {
 
-            if (Files.notExists(Constants.downloadDirectory)) {
+            if (!_fileManager.checkIfExist(Constants.downloadDirectory)) {
 
-                new File(Constants.downloadDirectory.toString()).mkdir();
+                _fileManager.makeDirectory(Constants.downloadDirectory.toString());
 
             }
             try {
                 URL website = new URL(_constants.getDownloadURL());
-                Files.copy(website.openStream(), _constants.getFileDirAndName(), StandardCopyOption.REPLACE_EXISTING);
-
-                _decompressor.decompress(Constants.downloadDirectory.toString(), constants.getFileDirAndName().toString());
+                _fileManager.copyFileToDir(website.openStream(), _constants.getFileDirAndName(), StandardCopyOption.REPLACE_EXISTING);
+                _decompressor.decompress(Constants.downloadDirectory.toString(), _constants.getFileDirAndName().toString());
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
