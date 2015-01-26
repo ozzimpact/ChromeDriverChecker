@@ -1,3 +1,5 @@
+import Config.IConfig;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -11,6 +13,11 @@ import java.util.zip.ZipInputStream;
 public class Decompressor implements IDecompressor{
 
 
+    private IConfig _config;
+    public Decompressor(IConfig con) {
+        _config = con;
+    }
+
     @Override
     public void decompress(String zipFilePath, String extractedFilePath) {
         byte[] buffer = new byte[1024];
@@ -19,7 +26,7 @@ public class Decompressor implements IDecompressor{
             ZipEntry ze = zipInputStream.getNextEntry();
             while (ze != null) {
                 String filename = ze.getName();
-                File newFile = new File(zipFilePath + "\\" + filename);
+                File newFile = new File(zipFilePath +_config.configProperties().getPathSeparator()+ filename);
 
                 FileOutputStream fos = new FileOutputStream(newFile);
                 int len;

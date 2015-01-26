@@ -1,3 +1,4 @@
+import Config.IConfig;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
@@ -15,10 +16,12 @@ public class DownloadManager implements IDownloadManager {
     private IDecompressor _decompressor;
     private IFileManager _fileManager;
     private IURLManager _urlManager;
+    private IConfig _config;
 
-    public DownloadManager(IDecompressor decompressor, IFileManager fileManager) {
+    public DownloadManager(IDecompressor decompressor, IFileManager fileManager, IConfig con) {
         _decompressor = decompressor;
         _fileManager = fileManager;
+        _config = con;
     }
 
     @Override
@@ -35,8 +38,8 @@ try {
     String encoding = con.getContentEncoding();
     encoding = encoding == null ? "UTF-8" : encoding;
     body = IOUtils.toString(in, encoding);
+    _config.configProperties().setVersion(body);
 
-    Constants.version = body;
 }catch (IOException ex){
     ex.printStackTrace();
 }
@@ -45,23 +48,23 @@ try {
     @Override
     public void downloadLatestDriver() {
 
-        if (_fileManager.checkIfLatestOrNot(_fileManager.pathToFile(Constants.downloadDirectory))) {
+        if (_fileManager.checkIfLatestOrNot(_fileManager.pathToFile(_config.configProperties().getDownloadDirectory()))) {
 
-            if (!_fileManager.checkIfExist(Constants.downloadDirectory)) {
+            if (!_fileManager.checkIfExist(_config.configProperties().getDownloadDirectory())) {
 
-                _fileManager.makeDirectory(Constants.downloadDirectory.toString());
+                _fileManager.makeDirectory(_config.configProperties().getDownloadDirectory().toString());
 
             }
             try {
-                URL website = new URL(Constants.downloadURL);
-                _fileManager.copyFileToDir(website.openStream(), Constants.fileDirAndName, StandardCopyOption.REPLACE_EXISTING);
-                _decompressor.decompress(Constants.downloadDirectory.toString(), Constants.fileDirAndName.toString());
+                URL website = new URL(_config.configProperties().getDownloadURL());
+                _fileManager.copyFileToDir(website.openStream(), _config.configProperties().getFileDirAndName(), StandardCopyOption.REPLACE_EXISTING);
+                _decompressor.decompress(_config.configProperties().getDownloadDirectory().toString(), _config.configProperties().getFileDirAndName().toString());
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
 
-            Constants.actionMessage = Constants.updateMessage+Constants.version;
+            _config.configProperties().setActionMessage(_config.configProperties().getUpdateMessage()+_config.configProperties().getVersion());
         }else
-            Constants.actionMessage = Constants.upToDateMessage;
+            _config.configProperties().setActionMessage(_config.configProperties().getUpToDateMessage());
     }
 }
