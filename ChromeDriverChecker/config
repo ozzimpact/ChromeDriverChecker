@@ -12,7 +12,7 @@ winFileDir=C:\\selenide\\chromedriver\\chromeDriver-v
 winPathSeparator=\\
 
 ---- Mac
-macDownloadDirectory=/Users/ty-testmac/Desktop/chromedriver/
+macDownloadDirectory=/Users/ty-testmac/.selenide/chromedriver/
 macDownloadLinkEnvironment=/chromedriver_mac32.zip
-macFileDir=/Users/ty-testmac/Desktop/chromedriver/chromeDriver-v
+macFileDir=/Users/ty-testmac/.selenide/chromedriver/chromeDriver-v
 macPathSeparator=/

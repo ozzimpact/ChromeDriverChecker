@@ -28,7 +28,8 @@ public class Decompressor implements IDecompressor{
                 String filename = ze.getName();
                 File newFile = new File(zipFilePath +_config.configProperties().getPathSeparator()+ filename);
 
-                Runtime.getRuntime().exec("chmod u+x "+zipFilePath +_config.configProperties().getPathSeparator()+ filename);
+                if(System.getProperties().getProperty("env").equals("mac"))
+                    Runtime.getRuntime().exec("chmod u+x "+zipFilePath +_config.configProperties().getPathSeparator()+ filename);
 
 
                 FileOutputStream fos = new FileOutputStream(newFile);
