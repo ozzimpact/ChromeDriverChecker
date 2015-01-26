@@ -32,34 +32,29 @@ public class DownloadManager implements IDownloadManager {
 
     @Override
     public void getLatestVersion(String versionCheckerUrl) {
-
         _urlManager = new URLManager(versionCheckerUrl);
-
         String body = "";
-try {
-    // URL url = new URL(versionCheckerUrl);
-    _urlManager.openConnection();
-    URLConnection con = _urlManager.openConnection();
-    InputStream in = con.getInputStream();
-    String encoding = con.getContentEncoding();
-    encoding = encoding == null ? "UTF-8" : encoding;
-    body = IOUtils.toString(in, encoding);
-    _config.configProperties().setVersion(body);
+        try {
+            _urlManager.openConnection();
+            URLConnection con = _urlManager.openConnection();
+            InputStream in = con.getInputStream();
+            String encoding = con.getContentEncoding();
+            encoding = encoding == null ? "UTF-8" : encoding;
+            body = IOUtils.toString(in, encoding);
+            _config.configProperties().setVersion(body);
 
-}catch (IOException ex){
-    ex.printStackTrace();
-}
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
     public void downloadLatestDriver() {
-
         if (_fileManager.checkIfLatestOrNot(_fileManager.pathToFile(_config.configProperties().getDownloadDirectory()))) {
 
             if (!_fileManager.checkIfExist(_config.configProperties().getDownloadDirectory())) {
 
                 _fileManager.makeDirectory(_config.configProperties().getDownloadDirectory().toString());
-
             }
             try {
                 URL website = new URL(_config.configProperties().getDownloadURL());
@@ -68,9 +63,8 @@ try {
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-
-            _config.configProperties().setActionMessage(_config.configProperties().getUpdateMessage()+_config.configProperties().getVersion());
-        }else
+            _config.configProperties().setActionMessage(_config.configProperties().getUpdateMessage() + _config.configProperties().getVersion());
+        } else
             _config.configProperties().setActionMessage(_config.configProperties().getUpToDateMessage());
     }
 }

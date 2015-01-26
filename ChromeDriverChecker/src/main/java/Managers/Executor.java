@@ -10,15 +10,13 @@ import Interface.IDownloadManager;
 public class Executor {
     private IDownloadManager _downloadManager;
     private IConfig _config;
-public Executor(IDownloadManager downloadManager, IConfig con) {
+
+    public Executor(IDownloadManager downloadManager, IConfig con) {
         _downloadManager = downloadManager;
         _config = con;
     }
 
     public void Execute() {
-
-
-
         _downloadManager.getLatestVersion(_config.configProperties().getVersionCheckerUrl());
         _downloadManager.downloadLatestDriver();
         System.out.println(_config.configProperties().getActionMessage());

@@ -6,5 +6,6 @@ package Interface;
 public interface IDownloadManager {
 
     void getLatestVersion(String versionCheckUrl);
+
     void downloadLatestDriver();
 }

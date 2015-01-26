@@ -11,12 +11,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-/**
- * Created by oguzhan.demir on 23.01.2015.
- */
+
 public class FileManager implements IFileManager {
 
     private IConfig _config;
+
     public FileManager(IConfig con) {
         _config = con;
     }
@@ -38,8 +37,6 @@ public class FileManager implements IFileManager {
 
     @Override
     public void makeDirectory(String directoryPath) {
-
-
         new File(directoryPath).mkdirs();
     }
 
@@ -65,28 +62,21 @@ public class FileManager implements IFileManager {
     @Override
     public boolean checkIfLatestOrNot(File folder) {
         String tempFileName;
-
-        //_folder = folder;
         if (this.checkIfExist(folder)) {
             for (File file : this.listFiles(folder)) {
                 if (this.checkFileNameIfContains(file, _config.configProperties().getVersion()))
                     return false;
             }
         }
-
         //This section can vary with environment(OSX, LINUX)
         //Here example use of windows
         //Constants.fileDirAndName = Paths.get(Constants.fileDir + Constants.version + Constants.zipExtension);
         _config.configProperties().setFileDirAndName(Paths.get(_config.configProperties().getFileDir() +
-                                                                  _config.configProperties().getVersion() +
-                                                                  _config.configProperties().getZipExtension()));
-
-
-        //Constants.downloadURL = Constants.firstPartOfDownloadLink + Constants.version + Constants.downloadLinkEnvironment;
-
-        _config.configProperties().setDownloadURL(_config.configProperties().getFirstPartOfDownloadLink()+
-                                                     _config.configProperties().getVersion()+
-                                                     _config.configProperties().getDownloadLinkEnvironment());
+                _config.configProperties().getVersion() +
+                _config.configProperties().getZipExtension()));
+        _config.configProperties().setDownloadURL(_config.configProperties().getFirstPartOfDownloadLink() +
+                _config.configProperties().getVersion() +
+                _config.configProperties().getDownloadLinkEnvironment());
         return true;
     }
 }
