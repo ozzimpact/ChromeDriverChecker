@@ -6,9 +6,9 @@ upToDateMessage=Chrome driver is up-to-date.
 
 
 ---- Windows
-winDownloadDirectory=C:\\selenide\\chromedriver\\
+winDownloadDirectory=C:\\.selenide\\chromedriver\\
 winDownloadLinkEnvironment=/chromedriver_win32.zip
-winFileDir=C:\\selenide\\chromedriver\\chromeDriver-v
+winFileDir=C:\\.selenide\\chromedriver\\chromeDriver-v
 winPathSeparator=\\
 
 ---- Mac

@@ -35,7 +35,9 @@ public class FileManager implements IFileManager {
 
     @Override
     public void makeDirectory(String directoryPath) {
-        new File(directoryPath).mkdir();
+
+
+        new File(directoryPath).mkdirs();
     }
 
     @Override
