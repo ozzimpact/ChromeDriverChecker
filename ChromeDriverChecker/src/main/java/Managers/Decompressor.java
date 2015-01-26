@@ -1,4 +1,7 @@
+package Managers;
+
 import Config.IConfig;
+import Interface.IDecompressor;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,7 +13,7 @@ import java.util.zip.ZipInputStream;
 /**
  * Created by oguzhan.demir on 22.01.2015.
  */
-public class Decompressor implements IDecompressor{
+public class Decompressor implements IDecompressor {
 
 
     private IConfig _config;

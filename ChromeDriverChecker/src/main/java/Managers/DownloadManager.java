@@ -1,4 +1,10 @@
+package Managers;
+
 import Config.IConfig;
+import Interface.IDecompressor;
+import Interface.IDownloadManager;
+import Interface.IFileManager;
+import Interface.IURLManager;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;

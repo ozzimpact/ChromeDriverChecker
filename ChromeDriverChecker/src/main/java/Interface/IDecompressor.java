@@ -1,3 +1,5 @@
+package Interface;
+
 /**
  * Created by oguzhan.demir on 22.01.2015.
  */

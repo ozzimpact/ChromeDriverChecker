@@ -1,3 +1,7 @@
+package Managers;
+
+import Interface.IURLManager;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -6,7 +10,7 @@ import java.net.URLConnection;
 /**
  * Created by oguzhan.demir on 23.01.2015.
  */
-public class URLManager implements IURLManager{
+public class URLManager implements IURLManager {
 
     private URL _url;
 

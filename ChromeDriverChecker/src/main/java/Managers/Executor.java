@@ -1,11 +1,14 @@
+package Managers;
+
 import Config.IConfig;
+import Interface.IDownloadManager;
 
 /**
  * Created by Oguzhan on 1/21/2015.
  */
 
 public class Executor {
-    private  IDownloadManager _downloadManager;
+    private IDownloadManager _downloadManager;
     private IConfig _config;
 public Executor(IDownloadManager downloadManager, IConfig con) {
         _downloadManager = downloadManager;
