@@ -24,5 +24,5 @@ public interface IFileManager {
 
     File[] listFiles(File file);
 
-    boolean checkIfLatestOrNot(File folder);
+    boolean checkIfLatestOrNot();
 }

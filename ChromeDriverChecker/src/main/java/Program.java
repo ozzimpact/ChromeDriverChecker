@@ -3,20 +3,28 @@ import Config.IConfig;
 import Interface.IDecompressor;
 import Interface.IDownloadManager;
 import Interface.IFileManager;
+import Interface.ILogger;
 import Managers.Decompressor;
 import Managers.DownloadManager;
 import Managers.Executor;
 import Managers.FileManager;
+import org.apache.log4j.Level;
 
 public class Program {
     public static void main(String args[]) {
 
-        IConfig con = new Config(System.getProperty("env"), System.getProperty("configFile"));
-        IDecompressor decompressor = new Decompressor(con);
-        IFileManager fileManager = new FileManager(con);
-        IDownloadManager downloadManager = new DownloadManager(decompressor, fileManager, con);
-        Executor executor = new Executor(downloadManager, con);
+        String env = System.getProperty("env");
+        String configFile = System.getProperty("configFile");
 
+        ILogger logger  = new Managers.Logger();
+        logger.setLogLevel(Level.INFO);
+        IConfig config = new Config(env, configFile,logger);
+        IDecompressor decompressor = new Decompressor(config,logger);
+        IFileManager fileManager = new FileManager(config,logger);
+        IDownloadManager downloadManager = new DownloadManager(decompressor, fileManager, config,logger);
+        Executor executor = new Executor(downloadManager, config,fileManager,logger);
+
+        logger.info("Operating on: " + env);
 
         executor.Execute();
     }

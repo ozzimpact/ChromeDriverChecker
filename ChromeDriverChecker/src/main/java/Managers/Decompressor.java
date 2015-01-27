@@ -2,6 +2,7 @@ package Managers;
 
 import Config.IConfig;
 import Interface.IDecompressor;
+import Interface.ILogger;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,9 +18,11 @@ public class Decompressor implements IDecompressor {
 
 
     private IConfig _config;
+    private ILogger _logger;
 
-    public Decompressor(IConfig con) {
+    public Decompressor(IConfig con, ILogger logger) {
         _config = con;
+        _logger = logger;
     }
 
     @Override
@@ -30,12 +33,11 @@ public class Decompressor implements IDecompressor {
             ZipEntry ze = zipInputStream.getNextEntry();
             while (ze != null) {
                 String filename = ze.getName();
-                File newFile = new File(zipFilePath + _config.configProperties().getPathSeparator() + filename);
+                File newFile = new File(zipFilePath + _config.getPathSeparator() + filename);
 
                 //This statement is for MAC. MAC needs this permisson to extract file as a executable one.
                 if (System.getProperties().getProperty("env").equals("mac"))
-                    Runtime.getRuntime().exec("chmod u+x " + zipFilePath + _config.configProperties().getPathSeparator() + filename);
-
+                    Runtime.getRuntime().exec("chmod u+x " + zipFilePath + _config.getPathSeparator() + filename);
 
                 FileOutputStream fos = new FileOutputStream(newFile);
                 int len;
@@ -48,7 +50,8 @@ public class Decompressor implements IDecompressor {
             zipInputStream.closeEntry();
             zipInputStream.close();
         } catch (IOException ex) {
-            ex.printStackTrace();
+            _logger.warn("Something went wrong while decompressing process: " + ex.toString());
         }
+        _logger.info("File is decompressed successfully.");
     }
 }

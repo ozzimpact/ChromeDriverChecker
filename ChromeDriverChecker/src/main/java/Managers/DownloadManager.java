@@ -1,10 +1,7 @@
 package Managers;
 
 import Config.IConfig;
-import Interface.IDecompressor;
-import Interface.IDownloadManager;
-import Interface.IFileManager;
-import Interface.IURLManager;
+import Interface.*;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
@@ -23,8 +20,10 @@ public class DownloadManager implements IDownloadManager {
     private IFileManager _fileManager;
     private IURLManager _urlManager;
     private IConfig _config;
+    private ILogger _logger;
 
-    public DownloadManager(IDecompressor decompressor, IFileManager fileManager, IConfig con) {
+    public DownloadManager(IDecompressor decompressor, IFileManager fileManager, IConfig con, ILogger logger) {
+        _logger = logger;
         _decompressor = decompressor;
         _fileManager = fileManager;
         _config = con;
@@ -32,7 +31,7 @@ public class DownloadManager implements IDownloadManager {
 
     @Override
     public void getLatestVersion(String versionCheckerUrl) {
-        _urlManager = new URLManager(versionCheckerUrl);
+        _urlManager = new URLManager(versionCheckerUrl,_logger);
         String body = "";
         try {
             _urlManager.openConnection();
@@ -41,30 +40,25 @@ public class DownloadManager implements IDownloadManager {
             String encoding = con.getContentEncoding();
             encoding = encoding == null ? "UTF-8" : encoding;
             body = IOUtils.toString(in, encoding);
-            _config.configProperties().setVersion(body);
+            _config.setVersion(body);
 
         } catch (IOException ex) {
-            ex.printStackTrace();
+            _logger.warn("Could not get the latest version: " + ex.toString());
         }
+        _logger.info("Latest version checked successfully.");
+
     }
 
     @Override
-    public void downloadLatestDriver() {
-        if (_fileManager.checkIfLatestOrNot(_fileManager.pathToFile(_config.configProperties().getDownloadDirectory()))) {
+    public void downloadLatestDriver()  {
+        try {
+            URL website = new URL(_config.getDownloadURL());
+            _fileManager.copyFileToDir(website.openStream(), _config.getFileDirAndName(), StandardCopyOption.REPLACE_EXISTING);
+            _logger.info("Successfully downloaded.");
+            _decompressor.decompress(_config.getDownloadDirectory().toString(), _config.getFileDirAndName().toString());
+        } catch (IOException ex) {
+            _logger.warn("Could not download the file: " + ex.toString());
+        }
 
-            if (!_fileManager.checkIfExist(_config.configProperties().getDownloadDirectory())) {
-
-                _fileManager.makeDirectory(_config.configProperties().getDownloadDirectory().toString());
-            }
-            try {
-                URL website = new URL(_config.configProperties().getDownloadURL());
-                _fileManager.copyFileToDir(website.openStream(), _config.configProperties().getFileDirAndName(), StandardCopyOption.REPLACE_EXISTING);
-                _decompressor.decompress(_config.configProperties().getDownloadDirectory().toString(), _config.configProperties().getFileDirAndName().toString());
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-            _config.configProperties().setActionMessage(_config.configProperties().getUpdateMessage() + _config.configProperties().getVersion());
-        } else
-            _config.configProperties().setActionMessage(_config.configProperties().getUpToDateMessage());
     }
 }

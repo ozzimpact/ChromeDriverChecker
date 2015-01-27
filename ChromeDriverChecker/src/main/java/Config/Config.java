@@ -1,5 +1,7 @@
 package Config;
 
+import Interface.ILogger;
+
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -25,87 +27,107 @@ public class Config implements IConfig {
     private String pathSeparator;
 
 
+    @Override
     public String getPathSeparator() {
         return pathSeparator;
     }
 
+    @Override
     public String getVersion() {
         return version;
     }
 
+    @Override
     public void setVersion(String version) {
         this.version = version;
     }
 
+    @Override
     public String getVersionCheckerUrl() {
         return versionCheckerUrl;
     }
 
+    @Override
     public String getZipExtension() {
         return zipExtension;
     }
 
+    @Override
     public String getFirstPartOfDownloadLink() {
         return firstPartOfDownloadLink;
     }
 
+    @Override
     public String getActionMessage() {
         return actionMessage;
     }
 
+    @Override
     public String getUpdateMessage() {
         return updateMessage;
     }
 
+    @Override
     public String getUpToDateMessage() {
         return upToDateMessage;
     }
 
+    @Override
     public String getDownloadURL() {
         return downloadURL;
     }
 
+    @Override
     public void setActionMessage(String actionMessage) {
         this.actionMessage = actionMessage;
     }
 
+    @Override
     public void setDownloadURL(String downloadURL) {
         this.downloadURL = downloadURL;
     }
 
+    @Override
     public Path getFileDirAndName() {
         return fileDirAndName;
     }
 
+    @Override
     public void setFileDirAndName(Path fileDirAndName) {
         this.fileDirAndName = fileDirAndName;
     }
 
+    @Override
     public Path getDownloadDirectory() {
         return downloadDirectory;
     }
 
+    @Override
     public void setDownloadDirectory(Path downloadDirectory) {
         this.downloadDirectory = downloadDirectory;
     }
 
+    @Override
     public String getDownloadLinkEnvironment() {
         return downloadLinkEnvironment;
     }
 
+    @Override
     public void setDownloadLinkEnvironment(String downloadLinkEnvironment) {
         this.downloadLinkEnvironment = downloadLinkEnvironment;
     }
 
+    @Override
     public String getFileDir() {
         return fileDir;
     }
 
+    @Override
     public void setFileDir(String fileDir) {
         this.fileDir = fileDir;
     }
 
-    public Config(String env, String configFile) {
+    public Config(String env, String configFile, ILogger logger) {
 
         Properties prop = new Properties();
         InputStream inputStream = null;
@@ -144,8 +166,4 @@ public class Config implements IConfig {
     }
 
 
-    @Override
-    public Config configProperties() {
-        return this;
-    }
 }
