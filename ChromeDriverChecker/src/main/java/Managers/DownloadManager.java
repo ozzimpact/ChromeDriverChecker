@@ -31,6 +31,7 @@ public class DownloadManager implements IDownloadManager {
 
     @Override
     public void getLatestVersion(String versionCheckerUrl) {
+        _logger.trace("Input -> Latest version checker URL: " + versionCheckerUrl);
         _urlManager = new URLManager(versionCheckerUrl,_logger);
         String body = "";
         try {
@@ -43,7 +44,8 @@ public class DownloadManager implements IDownloadManager {
             _config.setVersion(body);
 
         } catch (IOException ex) {
-            _logger.warn("Could not get the latest version: " + ex.toString());
+            _logger.error("Could not get the latest version: " + ex.toString());
+            System.exit(1);
         }
         _logger.info("Latest version checked successfully.");
 
@@ -58,7 +60,9 @@ public class DownloadManager implements IDownloadManager {
             _decompressor.decompress(_config.getDownloadDirectory().toString(), _config.getFileDirAndName().toString());
         } catch (IOException ex) {
             _logger.warn("Could not download the file: " + ex.toString());
+            System.exit(1);
         }
+
 
     }
 }

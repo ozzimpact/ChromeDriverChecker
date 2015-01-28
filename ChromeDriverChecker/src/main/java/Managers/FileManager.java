@@ -87,7 +87,7 @@ public class FileManager implements IFileManager {
 
         if (!checkIfExist(_config.getDownloadDirectory()))
             makeDirectory(_config.getDownloadDirectory().toString());
-        _logger.info("Driver version is updated to: " + _config.getVersion());
+        _logger.info("Driver version will be updated to: " + _config.getVersion());
         return true;
     }
 }

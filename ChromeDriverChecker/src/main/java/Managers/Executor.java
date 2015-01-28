@@ -29,7 +29,6 @@ public class Executor implements IExecutor {
                 _fileManager.makeDirectory(_config.getDownloadDirectory().toString()); // if not then create directory
             }
             _downloadManager.downloadLatestDriver(); //If everything is set for download action
-        } else
-            System.out.println(_config.getActionMessage());
+        }
     }
 }

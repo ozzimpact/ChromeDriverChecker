@@ -1,8 +1,6 @@
-versionCheckerUrl=http://chromedriver.storage.googleapis.com/LATEST_RELEASE
+versionCheckerUrl=http://chromedriver.storage.googleapis.com/LATEST_RELEA
 zipExtension=.zip
 firstPartOfDownloadLink=http://chromedriver.storage.googleapis.com/
-updateMessage=Chrome driver is updated to version-
-upToDateMessage=Chrome driver is up-to-date.
 
 
 ---- Windows

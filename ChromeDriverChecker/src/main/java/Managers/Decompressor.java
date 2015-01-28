@@ -27,6 +27,7 @@ public class Decompressor implements IDecompressor {
 
     @Override
     public void decompress(String zipFilePath, String extractedFilePath) {
+        _logger.trace("Decompress input, Zip file path: " + zipFilePath + ", Extracted File Path: " + extractedFilePath);
         byte[] buffer = new byte[1024];
         try {
             ZipInputStream zipInputStream = new ZipInputStream(new FileInputStream(extractedFilePath));
@@ -50,7 +51,8 @@ public class Decompressor implements IDecompressor {
             zipInputStream.closeEntry();
             zipInputStream.close();
         } catch (IOException ex) {
-            _logger.warn("Something went wrong while decompressing process: " + ex.toString());
+            _logger.error("Something went wrong while decompressing process: " + ex.toString());
+            System.exit(1);
         }
         _logger.info("File is decompressed successfully.");
     }

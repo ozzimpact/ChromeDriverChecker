@@ -1,7 +1,6 @@
 package Managers;
 
 import Interface.ILogger;
-import org.apache.log4j.Level;
 import org.apache.log4j.PropertyConfigurator;
 
 /**
@@ -9,47 +8,52 @@ import org.apache.log4j.PropertyConfigurator;
  */
 public class Logger implements ILogger {
 
-    private org.apache.log4j.Logger _logger;
+    private org.apache.log4j.Logger _traceLogger;
+    private org.apache.log4j.Logger _debugLogger;
+    private org.apache.log4j.Logger _infoLogger;
+    private org.apache.log4j.Logger _warnLogger;
+    private org.apache.log4j.Logger _errorLogger;
+    private org.apache.log4j.Logger _fatalLogger;
 
     public Logger() {
         PropertyConfigurator.configure("log4j.properties");
-        _logger = org.apache.log4j.Logger.getRootLogger();
+        _traceLogger = org.apache.log4j.Logger.getLogger("trace");
+        _debugLogger = org.apache.log4j.Logger.getLogger("debug");
+        _infoLogger = org.apache.log4j.Logger.getLogger("info");
+        _warnLogger = org.apache.log4j.Logger.getLogger("warn");
+        _errorLogger = org.apache.log4j.Logger.getLogger("error");
+        _fatalLogger = org.apache.log4j.Logger.getLogger("fatal");
 
-    }
-
-    @Override
-    public void setLogLevel(Level logLevel) {
-        _logger.setLevel(logLevel);
-    }
+      }
 
     @Override
     public void trace(String log) {
-        _logger.trace(log);
+        _traceLogger.trace(log);
     }
 
     @Override
     public void debug(String log) {
-        _logger.debug(log);
+        _debugLogger.debug(log);
     }
 
     @Override
     public void info(String log) {
-        _logger.info(log);
+        _infoLogger.info(log);
     }
 
     @Override
     public void warn(String log) {
-        _logger.warn(log);
+        _warnLogger.warn(log);
     }
 
     @Override
     public void error(String log) {
-        _logger.error(log);
+        _errorLogger.error(log);
     }
 
     @Override
     public void fatal(String log) {
-        _logger.fatal(log);
+        _fatalLogger.fatal(log);
     }
 
 
