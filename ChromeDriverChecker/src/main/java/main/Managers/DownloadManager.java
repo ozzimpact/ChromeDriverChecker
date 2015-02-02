@@ -61,7 +61,8 @@ public class DownloadManager implements IDownloadManager {
             _decompressor.decompress(_config.getDownloadDirectory().toString(), _config.getFileDirAndName().toString());
         } catch (IOException ex) {
             _logger.warn("Could not download the file: " + ex.toString());
-            System.exit(1);
+            throw new ChromeDriverException(ex.toString());
+
         }
 
 

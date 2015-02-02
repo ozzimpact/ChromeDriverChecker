@@ -52,7 +52,7 @@ public class Decompressor implements IDecompressor {
             zipInputStream.close();
         } catch (IOException ex) {
             _logger.error("Something went wrong while decompressing process: " + ex.toString());
-            System.exit(1);
+            throw new ChromeDriverException(ex.getCause());
         }
         _logger.info("File is decompressed successfully.");
     }
