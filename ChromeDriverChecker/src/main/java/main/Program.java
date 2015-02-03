@@ -6,20 +6,22 @@ import main.Interface.IDecompressor;
 import main.Interface.IDownloadManager;
 import main.Interface.IFileManager;
 import main.Interface.ILogger;
-import main.Managers.Decompressor;
-import main.Managers.DownloadManager;
-import main.Managers.Executor;
-import main.Managers.FileManager;
+import main.Managers.*;
 
 import java.nio.file.Paths;
 
 public class Program {
-    public static void main(String args[]) {
+    public Program() {
 
-        String env = System.getProperty("env");
-        String configFile = System.getProperty("configFile");
+        String env = null;
+                if(System.getProperty("os.name").startsWith("Windows"))
+                    env = "win";
+                else if(System.getProperty("os.name").startsWith("Mac"))
+                    env = "mac";
+        
+        String configFile = "config";
         String userHome = System.getProperty("user.home");
-        ILogger logger = new main.Managers.Logger();
+        ILogger logger = new Logger();
 
 
         IConfig config = new Config(env, configFile, logger);
