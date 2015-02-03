@@ -37,7 +37,7 @@ public class Decompressor implements IDecompressor {
                 File newFile = new File(zipFilePath + _config.getPathSeparator() + filename);
 
                 //This statement is for MAC. MAC needs this permisson to extract file as a executable one.
-                if (System.getProperties().getProperty("env").equals("mac"))
+                if (System.getProperties().getProperty("os.name").startsWith("Mac"))
                     Runtime.getRuntime().exec("chmod u+x " + zipFilePath + _config.getPathSeparator() + filename);
 
                 FileOutputStream fos = new FileOutputStream(newFile);

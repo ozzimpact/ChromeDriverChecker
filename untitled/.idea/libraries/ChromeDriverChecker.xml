@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="ChromeDriverChecker">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../ChromeDriverChecker/out/artifacts/ChromeDriverChecker_jar/ChromeDriverChecker.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../ChromeDriverChecker/out/artifacts/ChromeDriverChecker_jar/ChromeDriverChecker.jar!/src/main/java" />
+    </SOURCES>
+  </library>
+</component>

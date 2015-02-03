@@ -1,0 +1,16 @@
+versionCheckerUrl=http://chromedriver.storage.googleapis.com/LATEST_RELEASE
+zipExtension=.zip
+firstPartOfDownloadLink=http://chromedriver.storage.googleapis.com/
+
+
+---- Windows
+winDownloadDirectory=\\.selenide\\chromedriver\\
+winDownloadLinkEnvironment=/chromedriver_win32.zip
+winFileDir=\\.selenide\\chromedriver\\chromeDriver-v
+winPathSeparator=\\
+
+---- Mac
+macDownloadDirectory=/.selenide/chromedriver/
+macDownloadLinkEnvironment=/chromedriver_mac32.zip
+macFileDir=/.selenide/chromedriver/chromeDriver-v
+macPathSeparator=/
