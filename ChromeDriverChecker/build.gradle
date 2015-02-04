@@ -1,0 +1,33 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+
+version = '1.0'
+
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Jar File Example',
+                'Implementation-Version': version
+                }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'net.lingala.zip4j:zip4j:1.2.4'
+    compile 'org.apache.commons:commons-io:1.3.2'
+    compile 'log4j:log4j:1.2.17'
+    compile 'log4j:apache-log4j-extras:1.2.17'
+    compile 'org.apache.logging.log4j:log4j-api:2.0'
+    compile 'org.apache.logging.log4j:log4j-core:2.0'
+}
+
+uploadArchives {
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+}

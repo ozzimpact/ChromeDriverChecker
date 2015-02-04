@@ -10,19 +10,18 @@ import main.Managers.*;
 
 import java.nio.file.Paths;
 
-public class Program {
-    public Program() {
+public class ChromeDriverChecker {
+    public ChromeDriverChecker() {
 
         String env = null;
-                if(System.getProperty("os.name").startsWith("Windows"))
-                    env = "win";
-                else if(System.getProperty("os.name").startsWith("Mac"))
-                    env = "mac";
-        
+        if (System.getProperty("os.name").startsWith("Windows"))
+            env = "win";
+        else if (System.getProperty("os.name").startsWith("Mac"))
+            env = "mac";
+
         String configFile = "config";
         String userHome = System.getProperty("user.home");
         ILogger logger = new Logger();
-
 
         IConfig config = new Config(env, configFile, logger);
         config.setDownloadDirectory(Paths.get(userHome + config.getDownloadDirectory()));
